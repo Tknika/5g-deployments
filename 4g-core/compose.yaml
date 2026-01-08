@@ -190,9 +190,9 @@ services:
       - "${PCRF_BIND_PORT}/sctp"
       - "5868/tcp"
       - "5868/sctp"
-    # ports:
-    #   - "${PCRF_BIND_PORT}:${PCRF_BIND_PORT}/sctp"
-    #   - "${PCRF_BIND_PORT}:${PCRF_BIND_PORT}/tcp"
+    ports:
+       - "${PCRF_BIND_PORT}:${PCRF_BIND_PORT}/sctp"
+       - "${PCRF_BIND_PORT}:${PCRF_BIND_PORT}/tcp"
     networks:
       default:
         ipv4_address: ${PCRF_IP}
