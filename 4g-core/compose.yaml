@@ -241,7 +241,7 @@ networks:
     name: docker_open5gs_default
     ipam:
       config:
-        - subnet: ${TEST_NETWORK}
+        - subnet: ${INTERNAL_NETWORK_SUBNET}
 
 volumes:
   mongodbdata:
