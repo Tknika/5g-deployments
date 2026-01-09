@@ -3,8 +3,6 @@ services:
     image: mongo:6.0
     container_name: mongo
     command: --bind_ip 0.0.0.0
-    env_file:
-      - .env
     volumes:
       - mongodbdata:/data/db
       - mongodbdata:/data/configdb
@@ -21,10 +19,9 @@ services:
     container_name: webui
     depends_on:
       - mongo
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=webui
+      - MONGO_IP=${MONGO_IP}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -38,10 +35,14 @@ services:
   hss:
     image: ghcr.io/tknika/docker_open5gs:v2.7.6-20251216
     container_name: hss
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=hss
+      - MNC=${MNC}
+      - MCC=${MCC}
+      - HSS_IP=${HSS_IP}
+      - MME_IP=${MME_IP}
+      - MONGO_IP=${MONGO_IP}
+      - MAX_NUM_UE=${MAX_NUM_UE}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -61,10 +62,11 @@ services:
       - smf
       - upf
     container_name: sgwc
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=sgwc
+      - SGWU_IP=${SGWU_IP}
+      - SGWC_IP=${SGWC_IP}
+      - MAX_NUM_UE=${MAX_NUM_UE}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -80,10 +82,12 @@ services:
       - smf
       - upf
     container_name: sgwu
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=sgwu
+      - SGWU_IP=${SGWU_IP}
+      - SGWC_IP=${SGWC_IP}
+      - SGWU_ADVERTISE_IP=${SGWU_ADVERTISE_IP}
+      - MAX_NUM_UE=${MAX_NUM_UE}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -98,11 +102,24 @@ services:
   smf:
     image: ghcr.io/tknika/docker_open5gs:v2.7.6-20251216
     container_name: smf
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=smf
       - DEPLOY_MODE=4G
+      - SMF_IP=${SMF_IP}
+      - SCP_IP=${SCP_IP}
+      - NRF_IP=${NRF_IP}
+      - UPF_IP=${UPF_IP}
+      - PCSCF_IP=${PCSCF_IP}
+      - PCRF_IP=${PCRF_IP}
+      - OCS_IP=${OCS_IP}
+      - OSMOEPDG_IP=${OSMOEPDG_IP}
+      - SMF_DNS1=${SMF_DNS1}
+      - SMF_DNS2=${SMF_DNS2}
+      - MAX_NUM_UE=${MAX_NUM_UE}
+      - PCRF_BIND_PORT=${PCRF_BIND_PORT}
+      - OCS_BIND_PORT=${OCS_BIND_PORT}
+      - UE_IPV4_INTERNET=${UE_IPV4_INTERNET}
+      - UE_IPV4_IMS=${UE_IPV4_IMS}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -123,10 +140,18 @@ services:
     depends_on:
       - smf
     container_name: upf
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=upf
+      - UPF_TUNTAP_MODE=${UPF_TUNTAP_MODE}
+      - UPF_ADVERTISE_IP=${UPF_ADVERTISE_IP}
+      - UPF_INTERNET_APN_IF_NAME=${UPF_INTERNET_APN_IF_NAME}
+      - UPF_IMS_APN_IF_NAME=${UPF_IMS_APN_IF_NAME}
+      - UE_IPV4_INTERNET=${UE_IPV4_INTERNET}
+      - UE_IPV4_IMS=${UE_IPV4_IMS}
+      - MAX_NUM_UE=${MAX_NUM_UE}
+      - UPF_IP=${UPF_IP}
+      - SMF_IP=${SMF_IP}
+      - PCSCF_IP=${PCSCF_IP}
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -153,10 +178,18 @@ services:
       - upf
       #- osmomsc
     container_name: mme
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=mme
+      - MNC=${MNC}
+      - MCC=${MCC}
+      - TAC=${TAC}
+      - MAX_NUM_UE=${MAX_NUM_UE}
+      - MME_IP=${MME_IP}
+      - OSMOMSC_IP=${OSMOMSC_IP}
+      - SGWC_IP=${SGWC_IP}
+      - SMF_IP=${SMF_IP}
+      - HSS_IP=${HSS_IP}
+
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -176,10 +209,15 @@ services:
   pcrf:
     image: ghcr.io/tknika/docker_open5gs:v2.7.6-20251216
     container_name: pcrf
-    env_file:
-      - .env
     environment:
       - COMPONENT_NAME=pcrf
+      - MONGO_IP=${MONGO_IP}
+      - MAX_NUM_UE=${MAX_NUM_UE}
+      - PCRF_IP=${PCRF_IP}
+      - SMF_IP=${SMF_IP}
+      - PCRF_BIND_PORT=${PCRF_BIND_PORT}
+      - PCSCF_IP=${PCSCF_IP}
+      - PCSCF_BIND_PORT=${PCSCF_BIND_PORT}
     depends_on:
       - mongo
     volumes:
@@ -203,7 +241,7 @@ networks:
     name: docker_open5gs_default
     ipam:
       config:
-        - subnet: ${TEST_NETWORK}
+        - subnet: ${INTERNAL_NETWORK_SUBNET}
 
 volumes:
   mongodbdata:
