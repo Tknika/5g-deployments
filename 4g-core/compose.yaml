@@ -254,7 +254,7 @@ x-metadata:
   version: "1.0"
   author: TKNIKA - www.tknika.eus
   changelog: "First release."
-  documentation_url:
+  documentation_url: ""
 
 x-env-vars:
   MCC:
