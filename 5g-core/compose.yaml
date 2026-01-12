@@ -287,7 +287,7 @@ volumes:
 x-metadata:
   id: 5g-core
   name: 5G Core Network
-  description: Docker Compose configuration for a 5G Core Network using Open5GS components.
+  description: Docker Compose configuration for a 5G Core Network using Open5GS components
   version: "1.0"
   author: TKNIKA - www.tknika.eus
   changelog: "First release."
@@ -452,13 +452,13 @@ x-env-vars:
     type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
   HSS_IP:
     name: HSS IP
-    description: IP address of the Home Subscriber Server (HSS)
+    description: IP address of the Home Subscriber Server (HSS) container
     default: "172.22.0.3"
     advanced: true
     type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
   PCRF_IP:
     name: PCRF IP
-    description: IP address of the Policy and Charging Rules Function (PCRF)
+    description: IP address of the Policy and Charging Rules Function (PCRF) container
     default: "172.22.0.4"
     advanced: true
     type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
