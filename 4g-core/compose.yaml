@@ -248,11 +248,13 @@ volumes:
     name: docker_open5gs_mongodbdata
 
 x-metadata:
+  id: 4g-core
   name: 4G Core Network
   description: Docker Compose configuration for a 4G Core Network using Open5GS components.
   version: "1.0"
   author: TKNIKA - www.tknika.eus
-  documentation:
+  changelog: "First release."
+  documentation_url:
 
 x-env-vars:
   MCC:
