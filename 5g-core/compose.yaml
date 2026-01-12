@@ -283,3 +283,224 @@ networks:
 volumes:
   mongodbdata:
     name: docker_open5gs_mongodbdata
+
+x-metadata:
+  id: 5g-core
+  name: 5G Core Network
+  description: Docker Compose configuration for a 5G Core Network using Open5GS components.
+  version: "1.0"
+  author: TKNIKA - www.tknika.eus
+  changelog: "First release."
+  documentation_url:
+
+x-env-vars:
+  MCC:
+    name: MCC
+    description: Mobile Country Code
+    default: "001"
+    advanced: false
+    type: string:0;^\d{3}$
+  MNC:
+    name: MNC
+    description: Mobile Network Code
+    default: "01"
+    advanced: false
+    type: string:0;^\d{2}$
+  TAC:
+    name: TAC
+    description: Tracking Area Code
+    default: "1"
+    advanced: false
+    type: string:0;^\d{1,5}$
+  TZ:
+    name: Timezone
+    description: Timezone setting for containers
+    default: "Europe/Madrid"
+    advanced: true
+    type: string:0;^[a-zA-Z_]+/[a-zA-Z_]+$
+  MAX_NUM_UE:
+    name: Max number of UEs
+    description: Maximum number of User Equipments
+    default: "1024"
+    advanced: false
+    type: integer:0;2048
+  TEST_NETWORK:
+    name: Internal Network Subnet
+    description: CIDR subnet for the internal Docker network
+    default: "172.22.0.0/24"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$
+  DOCKER_HOST_IP:
+    name: Docker Host IP
+    description: IP address of the Docker host machine
+    default: "192.168.1.223"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  MONGO_IP:
+    name: MongoDB IP
+    description: IP address of the MongoDB container
+    default: "172.22.0.2"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  WEBUI_IP:
+    name: WebUI IP
+    description: IP address of the WebUI container
+    default: "172.22.0.26"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  NRF_IP:
+    name: NRF IP
+    description: IP address of the Network Repository Function (NRF) container
+    default: "172.22.0.12"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SCP_IP:
+    name: SCP IP
+    description: IP address of the Service Communication Proxy (SCP) container
+    default: "172.22.0.35"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  AUSF_IP:
+    name: AUSF IP
+    description: IP address of the Authentication Server Function (AUSF) container
+    default: "172.22.0.11"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UDR_IP:
+    name: UDR IP
+    description: IP address of the Unified Data Repository (UDR) container
+    default: "172.22.0.14"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UDM_IP:
+    name: UDM IP
+    description: IP address of the Unified Data Management (UDM) container
+    default: "172.22.0.13"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SMF_IP:
+    name: SMF IP
+    description: IP address of the Session Management Function (SMF) container
+    default: "172.22.0.7"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SMF_DNS1:
+    name: SMF Primary DNS
+    description: Primary DNS server for SMF
+    default: "8.8.8.8"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SMF_DNS2:
+    name: SMF Secondary DNS
+    description: Secondary DNS server for SMF
+    default: "8.8.4.4"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UPF_IP:
+    name: UPF IP
+    description: IP address of the User Plane Function (UPF) container
+    default: "172.22.0.8"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UPF_ADVERTISE_IP:
+    name: UPF Advertise IP
+    description: Advertised IP address for UPF external communication
+    default: "172.22.0.8"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UPF_TUNTAP_MODE:
+    name: UPF TUN/TAP Mode
+    description: TUN/TAP mode for UPF packet handling
+    default: "tun"
+    advanced: true
+    type: enum:tun,tap
+  UPF_INTERNET_APN_IF_NAME:
+    name: UPF Internet APN Interface
+    description: Network interface name for Internet APN in UPF
+    default: "ogstun"
+    advanced: true
+    type: string:0;^[a-zA-Z0-9\-]+$
+  UPF_IMS_APN_IF_NAME:
+    name: UPF IMS APN Interface
+    description: Network interface name for IMS APN in UPF
+    default: "ogstun2"
+    advanced: true
+    type: string:0;^[a-zA-Z0-9\-]+$
+  AMF_IP:
+    name: AMF IP
+    description: IP address of the Access and Mobility Management Function (AMF) container
+    default: "172.22.0.10"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  PCF_IP:
+    name: PCF IP
+    description: IP address of the Policy Control Function (PCF) container
+    default: "172.22.0.27"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  BSF_IP:
+    name: BSF IP
+    description: IP address of the Binding Support Function (BSF) container
+    default: "172.22.0.29"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  NSSF_IP:
+    name: NSSF IP
+    description: IP address of the Network Slice Selection Function (NSSF) container
+    default: "172.22.0.28"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  HSS_IP:
+    name: HSS IP
+    description: IP address of the Home Subscriber Server (HSS)
+    default: "172.22.0.3"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  PCRF_IP:
+    name: PCRF IP
+    description: IP address of the Policy and Charging Rules Function (PCRF)
+    default: "172.22.0.4"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  PCRF_BIND_PORT:
+    name: PCRF Bind Port
+    description: Port for PCRF diameter protocol binding
+    default: "3873"
+    advanced: true
+    type: integer:1;65535
+  SGWC_IP:
+    name: SGW-C IP
+    description: IP address of the Serving Gateway Controller (SGW-C)
+    default: "172.22.0.5"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SGWU_IP:
+    name: SGW-U IP
+    description: IP address of the Serving Gateway User plane (SGW-U)
+    default: "172.22.0.6"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  SGWU_ADVERTISE_IP:
+    name: SGW-U Advertise IP
+    description: Advertised IP address for SGW-U external communication
+    default: "172.22.0.6"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  MME_IP:
+    name: MME IP
+    description: IP address of the Mobility Management Entity (MME)
+    default: "172.22.0.9"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+  UE_IPV4_INTERNET:
+    name: UE IPv4 Internet Subnet
+    description: IPv4 subnet for Internet APN user equipments
+    default: "192.168.100.0/24"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$
+  UE_IPV4_IMS:
+    name: UE IPv4 IMS Subnet
+    description: IPv4 subnet for IMS APN user equipments
+    default: "192.168.101.0/24"
+    advanced: true
+    type: string:0;^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/\d{1,2}$
