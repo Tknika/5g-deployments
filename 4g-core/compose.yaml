@@ -12,7 +12,7 @@ services:
       - "27017/udp"
       - "27017/tcp"
     healthcheck:
-      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.getMongo().getDBNames().indexOf(\"open5gs\")' || exit 1"]
+      test: ["CMD-SHELL", "mongosh --quiet --eval 'db.getMongo().getDBNames()' || exit 1"]
       interval: 5s
       timeout: 3s
       start_period: 5s
