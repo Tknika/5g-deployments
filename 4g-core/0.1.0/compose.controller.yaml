@@ -27,3 +27,39 @@ networks:
     ipam:
       config:
         - subnet: ${INTERNAL_NETWORK_SUBNET}
+
+x-config-schema:
+  title: "4G Core Controller Config"
+  description: "Configuración inicial y editable del DeploymentController para 4g-core"
+
+  ui:
+    install_dialog_title: "4G Core Deployment Installation"
+    edit_dialog_title: "Edit 4G Core Configuration"
+    show_advanced_by_default: false
+
+  fields:
+    - key: advertise_ip
+      label: "Advertised IP address (SGWU)"
+      description: "Applied to SGWU_ADVERTISE_IP"
+      data_type: string
+      semantic_type: ip
+      required: true
+      input_source: manual_or_discovery
+      default: "0.0.0.0"
+      discovery:
+        source: host
+        value_from: ip
+        label_template: "{ip} - {type} - {interface_name}"
+      static_options:
+        - value: "0.0.0.0"
+          label: "0.0.0.0 (all interfaces)"
+      validators:
+        - type: regex
+          value: "^\\d{1,3}(\\.\\d{1,3}){3}$"
+      mutable: true
+      apply_on_change: update_env
+
+  bindings:
+    - field: advertise_ip
+      targets:
+        - service_env.SGWU_ADVERTISE_IP
