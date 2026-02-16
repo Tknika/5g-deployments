@@ -11,8 +11,7 @@ services:
       - ENV_FILE=/data/.env
       - LOG_LEVEL=info
     volumes:
-      - ./compose.yaml:/data/compose.yaml
-      - ./.env:/data/.env
+      - ./:/data
       - /usr/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/libexec/docker/cli-plugins/docker-compose:/usr/libexec/docker/cli-plugins/docker-compose
