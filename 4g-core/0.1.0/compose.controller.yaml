@@ -37,6 +37,19 @@ x-config-schema:
     show_advanced_by_default: false
 
   fields:
+    - key: OP
+      label: "OP (Operator Variant Algorithm Configuration Field)"
+      description: "Configuration field for operator variant algorithm in a 4G/5G Core Network"
+      data_type: string
+      semantic_type: hex
+      required: true
+      input_source: manual
+      default: ""
+      validators:
+        - type: regex
+          value: "^[0-9a-fA-F]{32}$"
+      mutable: true
+      apply_on_change: update_env
     - key: advertise_ip
       label: "Advertised IP address (SGWU)"
       description: "Applied to SGWU_ADVERTISE_IP"
@@ -59,6 +72,9 @@ x-config-schema:
       apply_on_change: update_env
 
   bindings:
+    - field: OP
+      targets:
+        - service_env.OP
     - field: advertise_ip
       targets:
         - service_env.SGWU_ADVERTISE_IP

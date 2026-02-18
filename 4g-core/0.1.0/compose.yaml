@@ -311,6 +311,12 @@ x-env-vars:
     default: "1"
     advanced: false
     type: string:0;^\d{1,5}$
+  OP:
+    name: OP (Operator Variant Algorithm Configuration Field)
+    description: Configuration field for operator variant algorithm in a 4G/5G Core Network
+    default: ""
+    advanced: false
+    type: string:1;^[0-9a-fA-F]{32}$
   MAX_NUM_UE:
     name: Max number of UEs
     description: Maximum number of User Equipments
