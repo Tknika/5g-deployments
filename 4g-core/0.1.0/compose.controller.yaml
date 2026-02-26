@@ -28,8 +28,8 @@ networks:
         - subnet: ${INTERNAL_NETWORK_SUBNET}
 
 x-config-schema:
-  title: "4G Core Controller Config"
-  description: "Configuración inicial y editable del DeploymentController para 4g-core"
+  title: "4G core configuration"
+  description: "4g-core initial and editable configuration"
 
   ui:
     install_dialog_title: "4G Core Deployment Installation"
@@ -78,3 +78,28 @@ x-config-schema:
     - field: advertise_ip
       targets:
         - service_env.SGWU_ADVERTISE_IP
+
+x-deployment-metadata-schema:
+  title: "4G Core metadata"
+  description: "4g-core metadata parameters"
+  fields:
+    - key: location.lat
+      label: "Latitude"
+      data_type: number
+      semantic_type: latitude
+      required: false
+      mutable: true
+      validators:
+        - type: range
+          min: -90
+          max: 90
+    - key: location.lon
+      label: "Longitude"
+      data_type: number
+      semantic_type: longitude
+      required: false
+      mutable: true
+      validators:
+        - type: range
+          min: -180
+          max: 180
