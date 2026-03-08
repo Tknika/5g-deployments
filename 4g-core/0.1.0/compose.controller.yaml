@@ -1,6 +1,6 @@
 services:
-  4g-core-deployment-controller:
-    container_name: 4g-core-deployment-controller
+  deployment-controller:
+    container_name: ${DEPLOYMENT_PREFIX}-deployment-controller
     image: ghcr.io/tknika/4g-core-deployment-controller:v0.4.1
     restart: unless-stopped
     expose:
@@ -16,8 +16,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/libexec/docker/cli-plugins/docker-compose:/usr/libexec/docker/cli-plugins/docker-compose
     networks:
-      default:
-        ipv4_address: 172.22.0.200
+      - default
 
 networks:
   default:
