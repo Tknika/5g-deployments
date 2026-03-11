@@ -286,15 +286,6 @@ volumes:
   mongodbdata:
     name: ${DEPLOYMENT_PREFIX}-mongodbdata
 
-x-metadata:
-  id: 4g-core
-  name: 4G Core Network
-  description: Docker Compose configuration for a 4G Core Network using Open5GS components.
-  version: "0.1.0"
-  author: Tknika
-  changelog: "First release."
-  documentation_url: ""
-
 x-env-vars:
   NETWORK_NAME:
     name: Network Name

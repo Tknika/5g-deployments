@@ -26,6 +26,20 @@ networks:
       config:
         - subnet: ${INTERNAL_NETWORK_SUBNET}
 
+x-metadata:
+  id: 4g-core
+  name: 4G Core Network
+  description: 4G Core Network using Open5GS components.
+  version: "0.1.0"
+  author: Tknika
+  changelog: "First release."
+  documentation_url: ""
+  max_instances: 1
+  provides:
+    - core-4g
+  conflicts:
+    - core-*
+
 x-config-schema:
   title: "4G core configuration"
   description: "4g-core initial and editable configuration"
